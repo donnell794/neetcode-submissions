@@ -1,0 +1,28 @@
+class Solution:
+
+    def encode(self, strs: List[str]) -> str:
+        if not strs:
+            return ""
+        ret = ""
+        for s in strs:
+            ret += str(len(s)) + ","
+        ret += ";"
+
+        for s in strs:
+            ret += s
+
+        return ret
+
+    def decode(self, s: str) -> List[str]:
+        if not s:
+            return []
+        ret = []
+        index = s.find(";")
+        sizes = s[:index-1].split(",")
+        left = index + 1
+        for size in sizes:
+            right = left+int(size)
+            ret.append(s[left:right])
+            left = right
+
+        return ret
